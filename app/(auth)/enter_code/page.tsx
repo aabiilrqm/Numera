@@ -26,7 +26,7 @@ export default function EnterCodePage() {
           </div>
 
           <div className="py-1 bg-secondary text-white w-1/2 rounded-2xl text-center mt-2">
-            <p>Enter Code</p>
+            <Link href={'/new_password'}>Enter Code</Link>
           </div>
         </div>
       </div>
