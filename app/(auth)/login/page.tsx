@@ -1,28 +1,30 @@
 // localhost:3000/api/xxx/xxx
 
-import {Eye} from "lucide-react";
+import { Eye } from "lucide-react";
 import Link from "next/link";
-export default function LoginPage() { 
+export default function LoginPage() {
   return (
-    <div className="w-5/6 h-[97vh] ">
+    <div className="w-5/6">
       <h1 className="text-3xl font-semibold text-center">Welcome</h1>
 
-      <h2 className="text-center mt-10 text-2xl">Log in with Email</h2>
+      <h2 className="text-center mt-10 text-lg">Log in with Email</h2>
 
       {/* Login Section */}
-      <div className="flex flex-col items-center mt-5 gap-2">
+      <div className="flex flex-col items-center mt-5 gap-1">
         <div className="w-3/4 flex flex-col gap-1">
-          <h3>Email</h3>
+          <p>Email</p>
 
-          <div className="w-full bg-gray-100 p-3 rounded-xl font-light text-sm">
-            Email
-          </div>
+          <input
+            type="email"
+            className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm focus:outline-0"
+            placeholder="Email"
+          />
         </div>
 
         <div className="w-3/4 flex flex-col gap-1">
-          <h3>Password</h3>
+          <p>Password</p>
 
-          <div className="w-full bg-gray-100 p-3 rounded-xl font-light text-sm flex justify-between items-center">
+          <div className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center">
             <p>Password</p>
             <Eye />
           </div>
@@ -36,7 +38,7 @@ export default function LoginPage() {
       </div>
 
       {/* Login with google or any */}
-      <div className="w-5/6 mt-7 mx-auto">
+      <div className="w-5/6 mt-5 mx-auto">
         <div className="flex justify-center items-center gap-1">
           <span className="bg-gray-500 w-1/3 h-0.5"></span>
           <p className="text-xl">Or</p>
@@ -54,10 +56,14 @@ export default function LoginPage() {
         </div>
       </div>
 
-      <div className="text-center mt-5 text-sm">
-        <p>Dont have an account? <Link href={'/register'} className="text-secondary font-semibold">Sign up here</Link></p>
+      <div className="text-center mt-10 text-sm">
+        <p>
+          Dont have an account?{" "}
+          <Link href={"/register"} className="text-secondary font-semibold">
+            Sign up here
+          </Link>
+        </p>
       </div>
-
     </div>
   );
 }

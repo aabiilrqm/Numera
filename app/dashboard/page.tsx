@@ -38,7 +38,7 @@ const menuLink = [
 
 export default function DashboardPage() {
   return (
-    <div className="p-4 flex gap-2 overflow-hidden">
+    <div className="p-4 flex">
       <div className="w-1/2 bg-white p-4 flex flex-col gap-2 rounded-xl">
         {/* Statistik */}
         <div className="flex flex-col gap-2">

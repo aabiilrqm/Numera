@@ -38,7 +38,7 @@ export default function LayoutAuth({
               return (
                 <li
                   key={index}
-                  className="p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary cursor-pointer transition-all"
+                  className="p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary text-xs cursor-pointer transition-all"
                 >
                   {item.icon}
                   {item.label}
