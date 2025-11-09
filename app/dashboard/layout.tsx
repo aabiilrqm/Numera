@@ -21,7 +21,7 @@ export default function LayoutAuth({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
+    <div className="flex bg-broken-white">
       <div className="w-1/8 h-screen bg-primary flex flex-col items-center">
         <div>
           <Image
@@ -36,7 +36,10 @@ export default function LayoutAuth({
           <ul className="flex flex-col gap-8">
             {menuItems.map((item, index) => {
               return (
-                <li key={index} className="p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary cursor-pointer transition-all">
+                <li
+                  key={index}
+                  className="p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary cursor-pointer transition-all"
+                >
                   {item.icon}
                   {item.label}
                 </li>
@@ -47,9 +50,7 @@ export default function LayoutAuth({
       </div>
       <div className="flex flex-col w-full">
         <div className="p-2 flex justify-end border-b border-gray-300 shadow-sm">
-          <div className="p-7 bg-gray-400 rounded-full">
-            
-          </div>
+          <div className="p-7 bg-gray-400 rounded-full"></div>
         </div>
         {children}
       </div>
