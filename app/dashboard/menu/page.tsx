@@ -1,5 +1,9 @@
+"use client";
+
 import { Search, Plus, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import ModalAddMenu from "@/components/ModalPage";
+import { useState } from "react";
 
 const menu = [
   {
@@ -35,6 +39,9 @@ const menu = [
 ];
 
 export default function MenuPage() {
+
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div className="p-4">
       <div className="w-full bg-white p-4 rounded-xl ">
@@ -57,13 +64,16 @@ export default function MenuPage() {
           </div>
 
           {/* Add Menu */}
-          <button className="flex gap-2 text-xs items-center bg-primary p-2 rounded-xl">
+          <button className="flex gap-2 text-xs items-center bg-primary p-2 rounded-xl" onClick={() => setOpenModal(true)}>
             <div className="rounded-full bg-white">
               <Plus />
             </div>
             <p className="text-white">Tambah Menu</p>
           </button>
         </div>
+
+        {/* Modal */}
+        <ModalAddMenu open={openModal} onClose={() => setOpenModal(false)} />
 
         {/* Select Options */}
         <div className="mt-4 flex  justify-between items-center">
