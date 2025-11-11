@@ -2,7 +2,7 @@
 
 import { ImagePlus } from "lucide-react";
 
-interface ModalAddMenuProps {
+type ModalAddMenuProps = {
   open: boolean;
   onClose: () => void;
 }

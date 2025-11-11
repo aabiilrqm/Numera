@@ -3,6 +3,7 @@
 import { Search, Plus, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import ModalAddMenu from "@/components/ModalPage";
+import DetailMenu from "@/components/DetailMenu";
 import { useState } from "react";
 
 const menu = [
@@ -30,17 +31,25 @@ const menu = [
     harga: "Rp 20.000",
     kategori: ["Makanan"],
   },
-    {
-      src: "/mie goreng.jpg",
-      label: "Mie Goreng",
-      harga: "Rp 20.000",
-      kategori: ["Makanan"],
-    },
+  {
+    src: "/mie goreng.jpg",
+    label: "Mie Goreng",
+    harga: "Rp 20.000",
+    kategori: ["Makanan"],
+  },
 ];
 
-export default function MenuPage() {
+type MenuItem = {
+  src: string;
+  label: string;
+  harga: string;
+  kategori: string[];
+};
 
+export default function MenuPage() {
   const [openModal, setOpenModal] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<MenuItem[]>([]);
+  const [openDetail, setOpenDetail] = useState(false);
 
   return (
     <div className="p-4">
@@ -64,7 +73,10 @@ export default function MenuPage() {
           </div>
 
           {/* Add Menu */}
-          <button className="flex gap-2 text-xs items-center bg-primary p-2 rounded-xl" onClick={() => setOpenModal(true)}>
+          <button
+            className="flex gap-2 text-xs items-center bg-primary p-2 rounded-xl"
+            onClick={() => setOpenModal(true)}
+          >
             <div className="rounded-full bg-white">
               <Plus />
             </div>
@@ -97,12 +109,16 @@ export default function MenuPage() {
         </div>
 
         {/* Menu Item */}
-        <div className="flex flex-wrap gap-5 justify-start">
+        <div className="flex flex-wrap gap-5 justify-start cursor-pointer">
           {menu.map((item, index) => {
             return (
               <div
                 key={index}
                 className="flex gap-5 mt-5 p-2 border border-gray-200 rounded-lg shadow-xs"
+                onClick={() => {
+                  setSelectedItems([item]);
+                  setOpenDetail(true);
+                }}
               >
                 <div>
                   <Image
@@ -136,6 +152,9 @@ export default function MenuPage() {
             );
           })}
         </div>
+
+        {/* Detail Menu */}
+        <DetailMenu menu={selectedItems} open={openDetail} onClose={() => setOpenDetail(false)} />
       </div>
     </div>
   );
