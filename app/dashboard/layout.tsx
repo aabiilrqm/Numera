@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   House,
   ChefHat,
@@ -8,8 +12,8 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { icon: <House />, label: "Beranda" },
-  { icon: <ChefHat />, label: "Menu" },
+  { icon: <House />, label: "Beranda", href: "/dashboard" },
+  { icon: <ChefHat />, label: "Menu", href: "/dashboard/menu" },
   { icon: <ChartNoAxesCombined />, label: "Laporan" },
   { icon: <User />, label: "Pengguna" },
   { icon: <Settings />, label: "Pengaturan" },
@@ -20,6 +24,7 @@ export default function LayoutAuth({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   return (
     <div className="flex bg-broken-white">
       <div className="w-1/8 h-screen bg-primary flex flex-col items-center">
@@ -36,12 +41,14 @@ export default function LayoutAuth({
           <ul className="flex flex-col gap-8">
             {menuItems.map((item, index) => {
               return (
-                <li
-                  key={index}
-                  className="p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary text-xs cursor-pointer transition-all"
-                >
-                  {item.icon}
-                  {item.label}
+                <li key={index}>
+                  <Link
+                    href={item.href || "#"}
+                    className={`p-0.5 flex flex-col items-center hover:bg-white rounded-lg hover:text-primary text-xs cursor-pointer transition-all ${pathname === item.href ? "bg-white text-primary" : ''}`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
                 </li>
               );
             })}
