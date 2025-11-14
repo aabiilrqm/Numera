@@ -1,8 +1,15 @@
-// localhost:3000/api/xxx/xxx
+"use client"
 
 import { Eye } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 export default function LoginPage() {
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("sudah submit")
+  }
+
   return (
     <div className="w-5/6">
       <h1 className="text-3xl font-semibold text-center">Welcome</h1>
@@ -10,7 +17,7 @@ export default function LoginPage() {
       <h2 className="text-center mt-10 text-lg">Log in with Email</h2>
 
       {/* Login Section */}
-      <div className="flex flex-col items-center mt-5 gap-1">
+      <form className="flex flex-col items-center mt-5 gap-1" onSubmit={(e) => handleSubmit(e)}>
         <div className="w-3/4 flex flex-col gap-1">
           <p>Email</p>
 
@@ -21,21 +28,22 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="w-3/4 flex flex-col gap-1">
+        <div className="w-3/4 flex flex-col gap-1 relative">
           <p>Password</p>
 
-          <div className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center">
-            <p>Password</p>
-            <Eye />
-          </div>
+          <input
+            className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center"
+            placeholder="Password"
+          />
+          <Eye className="absolute right-3 bottom-7" />
 
           <p className="self-end text-xs text-secondary">Lupa password?</p>
         </div>
 
-        <div className="py-1 bg-secondary text-white w-1/2 rounded-2xl text-center mt-2">
-          <p>Login</p>
-        </div>
-      </div>
+        <button className="py-1 bg-secondary text-white w-1/2 rounded-2xl text-center mt-2">
+          Login
+        </button>
+      </form>
 
       {/* Login with google or any */}
       <div className="w-5/6 mt-5 mx-auto">
