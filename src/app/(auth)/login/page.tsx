@@ -1,14 +1,22 @@
-"use client"
+"use client";
 
-import { Eye } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 export default function LoginPage() {
+  const [eyeClosed, setEyeClosed] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    alert("sudah submit")
-  }
+    fetch('/api/auth/login', {
+      method: 'POST', 
+      body: JSON.stringify({
+        email: e.currentTarget.email.value,
+        password: e.currentTarget.password.value
+      })
+    })
+
+  };
 
   return (
     <div className="w-5/6">
@@ -17,11 +25,15 @@ export default function LoginPage() {
       <h2 className="text-center mt-10 text-lg">Log in with Email</h2>
 
       {/* Login Section */}
-      <form className="flex flex-col items-center mt-5 gap-1" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        className="flex flex-col items-center mt-5 gap-1"
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <div className="w-3/4 flex flex-col gap-1">
-          <p>Email</p>
+          <label htmlFor="email">Email</label>
 
           <input
+            id="email"
             type="email"
             className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm focus:outline-0"
             placeholder="Email"
@@ -29,13 +41,20 @@ export default function LoginPage() {
         </div>
 
         <div className="w-3/4 flex flex-col gap-1 relative">
-          <p>Password</p>
+          <label htmlFor="password">Password</label>
 
           <input
-            className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center"
+            id="password"
+            className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center focus:outline-0"
             placeholder="Password"
           />
-          <Eye className="absolute right-3 bottom-7" />
+          <div className="absolute right-3 bottom-7">
+            {eyeClosed ? (
+              <EyeClosed onClick={() => setEyeClosed(false)} />
+            ) : (
+              <Eye onClick={() => setEyeClosed(true)} />
+            )}
+          </div>
 
           <p className="self-end text-xs text-secondary">Lupa password?</p>
         </div>

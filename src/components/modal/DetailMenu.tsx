@@ -1,12 +1,6 @@
 import { X } from "lucide-react";
 import Image from "next/image";
-
-type MenuItem = {
-  src: string;
-  label: string;
-  harga: string;
-  kategori: string[];
-};
+import { MenuItem } from "@/src/data/menu";
 
 interface DetailMenuProps {
   menu: MenuItem[];
@@ -47,11 +41,8 @@ export default function DetailMenu({ menu, open, onClose }: DetailMenuProps) {
                 Edit Menu
               </div>
 
-              <div className="bg-gray-200 px-8 py-2 rounded-lg">
-                Hapus Menu
-              </div>
+              <div className="bg-gray-200 px-8 py-2 rounded-lg">Hapus Menu</div>
             </div>
-            
           </div>
         ))}
       </div>

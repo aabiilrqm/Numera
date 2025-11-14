@@ -9,36 +9,25 @@ import {
   Citrus,
   Cookie,
   Plus,
+  Edit,
 } from "lucide-react";
-import Image from "next/image";
-import ModalAddMenu from "@/src/components/ModalPage";
-import DetailMenu from "@/src/components/DetailMenu";
-import { useState } from "react";
 
 const category = [
   {
     logo: <Ham />,
     label: "Main Course",
-    editLogo: <SquarePen />,
-    deleteLogo: <Trash2 />,
   },
   {
     logo: <CupSoda />,
     label: "Drink",
-    editLogo: <SquarePen />,
-    deleteLogo: <Trash2 />,
   },
   {
     logo: <Citrus />,
     label: "Appetizer",
-    editLogo: <SquarePen />,
-    deleteLogo: <Trash2 />,
   },
   {
     logo: <Cookie />,
     label: "Dessert",
-    editLogo: <SquarePen />,
-    deleteLogo: <Trash2 />,
   },
 ];
 
@@ -72,15 +61,18 @@ export default function KategoriMenu() {
       <div className="text-xs grid grid-cols-3 gap-4 mt-5">
         {category.map((item, index) => {
           return (
-            <div className="flex justify-between shadow-sm py-2 px-4 rounded-lg" key={index}>
+            <div
+              className="flex justify-between shadow-sm py-2 px-4 rounded-lg"
+              key={index}
+            >
               <div className="flex items-center gap-3">
                 <span className="text-third">{item.logo}</span>
                 <p className="font-semibold">{item.label}</p>
               </div>
 
               <div className="flex text-gray-400 font-light">
-                <span>{item.editLogo} </span>
-                <span>{item.deleteLogo}</span>
+                <span><SquarePen width={20}/></span>
+                <span><Trash2 width={20} /></span>
               </div>
             </div>
           );
