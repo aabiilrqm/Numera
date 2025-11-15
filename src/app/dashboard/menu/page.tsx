@@ -1,11 +1,10 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import MenuResto from "./menu_resto/page";
 import KategoriMenu from "./kategori_menu/page";
 
 export default function MenuPage() {
-
   const [category, setCategory] = useState(true);
 
   return (

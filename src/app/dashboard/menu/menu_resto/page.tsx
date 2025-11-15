@@ -4,13 +4,21 @@ import { Search, Plus, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import ModalAddMenu from "@/src/components/modal/ModalPage";
 import DetailMenu from "@/src/components/modal/DetailMenu";
-import { useState } from "react";
-import { menu, MenuItem } from "@/src/data/menu";
+import { useState, useEffect } from "react";
+import { MenuItem } from "@/src/data/menu";
 
 export default function MenuResto() {
   const [openModal, setOpenModal] = useState(false);
   const [selectedItems, setSelectedItems] = useState<MenuItem[]>([]);
   const [openDetail, setOpenDetail] = useState(false);
+  const [menu, setMenu] = useState<MenuItem[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/menu')
+    .then((res) => res.json())
+    .then((data) => setMenu(data))
+  }, [])
+
 
   return (
     <>
@@ -64,10 +72,10 @@ export default function MenuResto() {
 
       {/* Menu Item */}
       <div className="flex flex-wrap gap-5 justify-start cursor-pointer">
-        {menu.map((item, index) => {
+        {menu.map((item) => {
           return (
             <div
-              key={index}
+              key={item.id}
               className="flex gap-5 mt-5 p-2 border border-gray-200 rounded-lg shadow-xs"
               onClick={() => {
                 setSelectedItems([item]);
@@ -96,7 +104,7 @@ export default function MenuResto() {
                   ))}
                 </div>
                 <p className="text-[15px] font-semibold">{item.label}</p>
-                <p className="text-[10px] text-gray-400">{item.harga}</p>
+                <p className="text-[10px] text-gray-400">Rp.{item.harga}</p>
               </div>
 
               <div className="flex items-center justify-end ">
