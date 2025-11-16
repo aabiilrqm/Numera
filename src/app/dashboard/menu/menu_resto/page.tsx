@@ -9,12 +9,12 @@ import { MenuItem } from "@/src/data/menu";
 
 export default function MenuResto() {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<MenuItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<MenuItem[]>([]); // ini utk informasi menu yang di klik
   const [openDetail, setOpenDetail] = useState(false);
-  const [menu, setMenu] = useState<MenuItem[]>([])
+  const [menu, setMenu] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/menu')
+    fetch('/api/menu')
     .then((res) => res.json())
     .then((data) => setMenu(data))
   }, [])
