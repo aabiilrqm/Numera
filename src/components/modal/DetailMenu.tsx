@@ -36,10 +36,19 @@ export default function DetailMenu({ id, open, onClose }: DetailMenuProps) {
 
         <div className="mt-2">
           <div>
-            <Image src={menuDetail.src} width={400} height={100} alt=""></Image>
+            {!menuDetail.src ? (
+              <div className="bg-gray-200 p-3 h-50"></div>
+            ) : (
+              <Image
+                src={menuDetail.src}
+                width={400}
+                height={100}
+                alt=""
+              ></Image>
+            )}
 
             {!menuDetail || !menuDetail.kategori ? (
-              <div className="bg-gray-200 p-3 h-50"></div>
+              <div className="bg-gray-200 p-3 h-5"></div>
             ) : (
               <div className="text-[10px] flex gap-2 p-3">
                 {menuDetail?.kategori?.map((i: string, idx: number) => (
