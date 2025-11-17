@@ -9,16 +9,15 @@ import { MenuItem } from "@/src/data/menu";
 
 export default function MenuResto() {
   const [openModal, setOpenModal] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<MenuItem[]>([]); // ini utk informasi menu yang di klik
+  const [selectedItems, setSelectedItems] = useState(""); // ini utk informasi menu yang di klik
   const [openDetail, setOpenDetail] = useState(false);
   const [menu, setMenu] = useState<MenuItem[]>([]);
 
   useEffect(() => {
-    fetch('/api/menu')
-    .then((res) => res.json())
-    .then((data) => setMenu(data))
-  }, [])
-
+    fetch("/api/menu")
+      .then((res) => res.json())
+      .then((data) => setMenu(data));
+  }, []);
 
   return (
     <>
@@ -78,7 +77,7 @@ export default function MenuResto() {
               key={item.id}
               className="flex gap-5 mt-5 p-2 border border-gray-200 rounded-lg shadow-xs"
               onClick={() => {
-                setSelectedItems([item]);
+                setSelectedItems(item.id);
                 setOpenDetail(true);
               }}
             >
@@ -117,7 +116,7 @@ export default function MenuResto() {
 
       {/* Detail Menu */}
       <DetailMenu
-        menu={selectedItems}
+        id={selectedItems}
         open={openDetail}
         onClose={() => setOpenDetail(false)}
       />
