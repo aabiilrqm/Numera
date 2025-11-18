@@ -1,42 +1,29 @@
+"use client";
+
 import {
   ChefHat,
-  PersonStanding,
-  Banknote,
-  MoveUpRight,
   Copy,
   QrCode,
 } from "lucide-react";
 import Image from "next/image";
-
-const menuStatistik = [
-  {
-    logo: <PersonStanding />,
-    label: "Pengunjung hari ini",
-    value: "1",
-  },
-
-  {
-    logo: <Banknote />,
-    label: "Pendapatan hari ini",
-    value: "Rp 50.000",
-  },
-];
-
-const menuLink = [
-  {
-    logo: <MoveUpRight />,
-    label: "Cashier",
-    href: "https://cashier.numera.com/",
-  },
-
-  {
-    logo: <MoveUpRight />,
-    label: "Waiters",
-    href: "https://waiters.numera.com/",
-  },
-];
+import { menuStatistik, menuLink } from "@/src/data/dashboard/dataMenu";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
+
+  const {data: session, status} = useSession();
+  const router = useRouter();
+  console.log(session)
+  console.log(status)
+
+  useEffect(() => {
+    if(status === 'unauthenticated') {
+      router.push("/login")
+    }
+  }, [status, router])
+
   return (
     <div className="p-4 flex">
       <div className="w-1/2 bg-white p-4 flex flex-col gap-2 rounded-xl">
