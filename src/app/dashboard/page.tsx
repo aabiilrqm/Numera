@@ -15,14 +15,14 @@ export default function DashboardPage() {
 
   const {data: session, status} = useSession();
   const router = useRouter();
-  console.log(session)
-  console.log(status)
+  // console.log(session)
+  // console.log(status)
 
-  useEffect(() => {
-    if(status === 'unauthenticated') {
-      router.push("/login")
-    }
-  }, [status, router])
+  // useEffect(() => {
+  //   if(status === 'unauthenticated') {
+  //     router.push("/login")
+  //   }
+  // }, [status, router])
 
   return (
     <div className="p-4 flex">

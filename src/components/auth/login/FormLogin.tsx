@@ -1,8 +1,10 @@
 import { Eye, EyeClosed } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 export default function FormLogin() {
   const [eyeClosed, setEyeClosed] = useState(false);
+  const router = useRouter();
 
   return (
     <form className="flex flex-col mt-5 gap-3">
@@ -37,8 +39,9 @@ export default function FormLogin() {
       </div>
 
       <button
+        type="button"
         className="py-1 bg-secondary text-white rounded-lg text-center mt-2"
-        onClick={() => signIn()}
+        onClick={() => router.push("/identitas")}
       >
         Masuk
       </button>
