@@ -7,22 +7,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { menuStatistik, menuLink } from "@/src/data/dashboard/dataMenu";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
 export default function DashboardPage() {
 
-  const {data: session, status} = useSession();
-  const router = useRouter();
-  // console.log(session)
-  // console.log(status)
-
-  // useEffect(() => {
-  //   if(status === 'unauthenticated') {
-  //     router.push("/login")
-  //   }
-  // }, [status, router])
 
   return (
     <div className="p-4 flex">

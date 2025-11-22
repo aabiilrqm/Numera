@@ -41,7 +41,7 @@ export default function FormLogin() {
       <button
         type="button"
         className="py-1 bg-secondary text-white rounded-lg text-center mt-2"
-        onClick={() => router.push("/identitas")}
+        onClick={() => router.push("/dashboard")}
       >
         Masuk
       </button>
