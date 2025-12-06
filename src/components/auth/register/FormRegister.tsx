@@ -6,9 +6,20 @@ export default function FormRegister() {
   const [email, setEmail] = useState("");
 
   const handleNext = () => {
+    if (!email) {
+      alert("Email wajib diisi");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      alert("Email tidak valid");
+      return;
+    }
+
     localStorage.setItem("register_email", email);
     router.push("/identitas");
   };
+
 
   return (
     <form className="flex flex-col mt-5 gap-3">

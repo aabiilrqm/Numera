@@ -48,34 +48,36 @@ export default function RestoranAuthPage() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      // baca data sementara dari localStorage
+      // ====== A. Ambil data penting ======
       const name = localStorage.getItem("register_name");
       const email = localStorage.getItem("register_email");
       const password = localStorage.getItem("register_password");
 
-      // validasi wajib ada
-      if (!email || !password) {
-        alert(
-          "Email atau password tidak ditemukan. Silakan ulang pendaftaran."
-        );
-        setLoading(false);
+      if (!name || !email || !password) {
+        alert("Data pendaftaran tidak lengkap. Ulangi dari awal.");
+        router.push("/register");
         return;
       }
 
-      // upload gambar jika ada
+      // ====== B. Upload logo (jika ada) ======
       const logoUrl = await uploadToSupabase(image);
 
-      // buat user di Firebase Auth
-      const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      // ====== C. Buat user Firebase ======
+      let userCred;
+      try {
+        userCred = await createUserWithEmailAndPassword(auth, email, password);
+      } catch (error: any) {
+        if (error.code === "auth/email-already-in-use") {
+          alert("Email sudah digunakan! Silakan login.");
+          return;
+        }
+        throw error;
+      }
 
-      // simpan data user ke Firestore
+      // ====== D. Simpan ke Firestore ======
       await setDoc(doc(db, "users", userCred.user.uid), {
         email,
-        ownerName: name ?? null,
+        ownerName: name,
         restoran: {
           nama: nama || null,
           alamat: alamat || null,
@@ -85,19 +87,21 @@ export default function RestoranAuthPage() {
         createdAt: new Date().toISOString(),
       });
 
-      // bersihkan localStorage sementara
+      // ====== E. Hapus data register ======
       localStorage.removeItem("register_name");
       localStorage.removeItem("register_email");
       localStorage.removeItem("register_password");
 
+      // ====== F. Redirect ======
       router.push("/dashboard");
     } catch (err: any) {
       console.error("Registrasi error:", err);
-      alert("Terjadi kesalahan saat mendaftar: " + (err.message ?? err));
+      alert("Gagal mendaftar: " + (err.message ?? err));
     } finally {
       setLoading(false);
     }
   };
+
 
   // --- handler input file: aman dari 'files is possibly null'
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,7 @@
 
 import { Search, Plus, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import ModalAddMenu from "@/src/components/modal/ModalPage";
+import ModalAddMenu from "@/src/components/modal/ModalAddMenu";
 import DetailMenu from "@/src/components/modal/DetailMenu";
 import { useState, useEffect } from "react";
 import { MenuItem } from "@/src/data/menu";

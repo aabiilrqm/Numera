@@ -1,13 +1,50 @@
+"use client";
+
 import { Eye, EyeClosed } from "lucide-react";
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/src/lib/firebase";
+
 export default function FormLogin() {
-  const [eyeClosed, setEyeClosed] = useState(false);
+  const [eyeClosed, setEyeClosed] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Email dan password harus diisi!");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // Login Firebase
+      const userCred = await signInWithEmailAndPassword(auth, email, password);
+
+      // simpan session ke localStorage
+      localStorage.setItem("user_uid", userCred.user.uid);
+      localStorage.setItem("user_email", userCred.user.email || "");
+
+      router.push("/dashboard");
+    } catch (err: any) {
+      alert("Login gagal: " + err.message);
+      console.error("Login Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form className="flex flex-col mt-5 gap-3">
+    <form
+      className="flex flex-col mt-5 gap-3"
+      onSubmit={(e) => e.preventDefault()}
+    >
+      {/* Email */}
       <div className="flex flex-col gap-1">
         <label htmlFor="email">Email</label>
 
@@ -16,18 +53,26 @@ export default function FormLogin() {
           type="email"
           className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm focus:outline-0"
           placeholder="Masukkan email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
+      {/* Password */}
       <div className="flex flex-col gap-1 relative">
         <label htmlFor="password">Kata Sandi</label>
 
         <input
           id="password"
-          className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm flex justify-between items-center focus:outline-0"
+          type={eyeClosed ? "password" : "text"}
+          className="w-full bg-gray-100 p-2 rounded-xl font-light text-sm focus:outline-0"
           placeholder="Masukkan kata sandi"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <div className="absolute right-3 bottom-7 cursor-pointer">
+
+        {/* Eye toggle */}
+        <div className="absolute right-3 bottom-6 cursor-pointer">
           {eyeClosed ? (
             <EyeClosed onClick={() => setEyeClosed(false)} />
           ) : (
@@ -35,15 +80,19 @@ export default function FormLogin() {
           )}
         </div>
 
-        <p className="self-end text-xs text-secondary">Lupa Kata Sandi?</p>
+        <p className="self-end text-xs text-secondary cursor-pointer">
+          Lupa Kata Sandi?
+        </p>
       </div>
 
+      {/* Button Login */}
       <button
         type="button"
         className="py-1 bg-secondary text-white rounded-lg text-center mt-2"
-        onClick={() => router.push("/dashboard")}
+        onClick={handleLogin}
+        disabled={loading}
       >
-        Masuk
+        {loading ? "Memproses..." : "Masuk"}
       </button>
     </form>
   );

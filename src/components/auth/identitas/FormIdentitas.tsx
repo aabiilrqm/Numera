@@ -24,6 +24,16 @@ export default function IdentitasPage() {
   }, []);
 
   const handleNext = () => {
+    if (!name || !password || !confirm) {
+      alert("Semua field wajib diisi");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Password minimal 6 karakter");
+      return;
+    }
+
     if (password !== confirm) {
       alert("Password tidak sama");
       return;
@@ -34,6 +44,7 @@ export default function IdentitasPage() {
 
     router.push("/restoran");
   };
+
 
   return (
     <div className="w-full mx-auto">
