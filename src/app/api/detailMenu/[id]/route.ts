@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { retrieveDataById } from "@/src/lib/firebase/service";
 
-export async function GET(req: Request, {params} : {params: {id: string}}) {
+export async function GET(req: NextRequest, {params} : {params: {id: string}}) {
   const {id} = await params
 
   console.log(id)
