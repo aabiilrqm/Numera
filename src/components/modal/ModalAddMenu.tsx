@@ -9,7 +9,7 @@ import { addDoc, collection } from "firebase/firestore";
 type ModalAddMenuProps = {
   open: boolean;
   onClose: () => void;
-  refresh: () => void | Promise<void>;
+  refresh?: () => void | Promise<void>;
 };
 
 export default function ModalAddMenu({ open, onClose, refresh }: ModalAddMenuProps) {
